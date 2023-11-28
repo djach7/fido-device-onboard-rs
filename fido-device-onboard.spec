@@ -85,6 +85,14 @@ install -D -m 0755 -t %{buildroot}%{dracutlibdir}/modules.d/52fdo dracut/52fdo/m
 install -D -m 0755 -t %{buildroot}%{dracutlibdir}/modules.d/52fdo dracut/52fdo/manufacturing-client-generator
 install -D -m 0755 -t %{buildroot}%{dracutlibdir}/modules.d/52fdo dracut/52fdo/manufacturing-client-service
 install -D -m 0755 -t %{buildroot}%{dracutlibdir}/modules.d/52fdo dracut/52fdo/manufacturing-client.service
+# db sql files
+install -D -m 0644 -t %{buildroot}%{_localstatedir}/lib/fdo/migrations/migrations_manufacturing_server_postgres  migrations/migrations_manufacturing_server_postgres/*
+install -D -m 0644 -t %{buildroot}%{_localstatedir}/lib/fdo/migrations/migrations_manufacturing_server_sqlite  migrations/migrations_manufacturing_server_sqlite/*
+install -D -m 0644 -t %{buildroot}%{_localstatedir}/lib/fdo/migrations/migrations_owner_onboarding_server_postgres  migrations/migrations_owner_onboarding_server_postgres/*
+install -D -m 0644 -t %{buildroot}%{_localstatedir}/lib/fdo/migrations/migrations_owner_onboarding_server_sqlite  migrations/migrations_owner_onboarding_server_sqlite/*
+install -D -m 0644 -t %{buildroot}%{_localstatedir}/lib/fdo/migrations/migrations_rendezvous_server_postgres  migrations/migrations_rendezvous_server_postgres/*
+install -D -m 0644 -t %{buildroot}%{_localstatedir}/lib/fdo/migrations/migrations_rendezvous_server_sqlite  migrations/migrations_rendezvous_server_sqlite/*
+
 
 %package -n fdo-init
 Summary: dracut module for device initialization
@@ -119,6 +127,8 @@ Requires: openssl-libs >= 3.0.1-12
 %{_libexecdir}/fdo/fdo-owner-onboarding-server
 %{_libexecdir}/fdo/fdo-serviceinfo-api-server
 %dir %{_localstatedir}/lib/fdo
+%{_localstatedir}/lib/fdo/migrations/migrations_owner_onboarding_server_postgres/*
+%{_localstatedir}/lib/fdo/migrations/migrations_owner_onboarding_server_sqlite/*
 %dir %{_docdir}/fdo
 %{_docdir}/fdo/device_specific_serviceinfo.yml
 %{_docdir}/fdo/serviceinfo-api-server.yml
@@ -154,6 +164,8 @@ License: %combined_license
 %dir %{_sysconfdir}/fdo/stores/rendezvous_sessions
 %{_libexecdir}/fdo/fdo-rendezvous-server
 %dir %{_localstatedir}/lib/fdo
+%{_localstatedir}/lib/fdo/migrations/migrations_rendezvous_server_postgres/*
+%{_localstatedir}/lib/fdo/migrations/migrations_rendezvous_server_sqlite/*
 %dir %{_docdir}/fdo
 %{_docdir}/fdo/rendezvous-*.yml
 %{_unitdir}/fdo-rendezvous-server.service
@@ -186,6 +198,8 @@ Requires: openssl-libs >= 3.0.1-12
 %dir %{_sysconfdir}/fdo/stores/owner_vouchers
 %{_libexecdir}/fdo/fdo-manufacturing-server
 %dir %{_localstatedir}/lib/fdo
+%{_localstatedir}/lib/fdo/migrations/migrations_manufacturing_server_postgres/*
+%{_localstatedir}/lib/fdo/migrations/migrations_manufacturing_server_sqlite/*
 %dir %{_docdir}/fdo
 %{_docdir}/fdo/manufacturing-server.yml
 %{_unitdir}/fdo-manufacturing-server.service
